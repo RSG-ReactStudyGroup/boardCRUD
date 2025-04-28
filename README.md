@@ -25,7 +25,8 @@ git clone https://github.com/RSG-ReactStudyGroup/boardCRUD.git
 server 폴더에 있던 .txt 파일은 삭제해주세요.
 빈 폴더는 GitHub에 올라가지 않아서, 구조 참고용으로 넣어뒀어요.
 
-🖥️ 서버 실행 방법
+### 🖥️ 서버 실행 방법
+
 본인 이름 폴더로 이동
 
 ```
@@ -42,7 +43,8 @@ or
 node app.js
 ```
 
-🚀 작업 후 Git Push 방법
+### 🚀 작업 후 Git Push 방법
+
 작업 완료 후 상위 폴더로 두 번 이동
 
 ```
