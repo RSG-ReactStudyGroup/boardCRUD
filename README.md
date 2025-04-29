@@ -43,16 +43,10 @@ or
 node app.js
 ```
 
-### 🚀 작업 후 Git Push 방법
-
-작업 완료 후 상위 폴더로 두 번 이동
-
 ```
-cd ..
-cd ..
+npm i express
+npm i mysql
 ```
-
----
 
 # 🗂️ 커밋 메시지 규칙
 
