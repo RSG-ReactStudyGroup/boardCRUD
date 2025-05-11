@@ -1,0 +1,45 @@
+#!/usr/bin/env node
+
+const app = require('../app');
+const http = require('http');
+
+// 포트 설정 (환경변수 없을 경우 기본 4000)
+const PORT = normalizePort(process.env.PORT);
+app.set('port', PORT);
+
+// 서버 생성
+const server = http.createServer(app);
+
+// 서버 리스닝 시작
+server.listen(PORT, () => {
+  console.log(`🚀 Server is running on http://localhost:${PORT}`);
+});
+server.on('error', onError);
+
+// 포트 정리 함수
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) return val;       // named pipe
+  if (port >= 0) return port;        // port number
+  return false;
+}
+
+// 에러 핸들링 함수
+function onError(error) {
+  if (error.syscall !== 'listen') throw error;
+
+  const bind = typeof PORT === 'string' ? 'Pipe ' + PORT : 'Port ' + PORT;
+
+  switch (error.code) {
+    case 'EACCES':
+      console.error(`${bind} requires elevated privileges`);
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(`${bind} is already in use`);
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
