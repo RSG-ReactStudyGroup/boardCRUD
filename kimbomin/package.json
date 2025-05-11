@@ -2,7 +2,19 @@
   "type": "module",
   "dependencies": {
     "dotenv": "^16.5.0",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "mysql2": "^3.14.1"
-  }
+  },
+  "name": "kimbomin",
+  "version": "1.0.0",
+  "description": "```\r CREATE TABLE users (\r \tid INT AUTO_INCREMENT NOT NULL PRIMARY KEY,\r \temail VARCHAR(40) NOT NULL UNIQUE,\r \tpassword VARCHAR(40) NOT NULL,\r \tnickname VARCHAR(30) NOT NULL\r );\r ```",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

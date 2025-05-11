@@ -6,8 +6,23 @@ const PORT = process.env.PORT
 import express from 'express'
 const app = express()
 
+
+// nodeJS,express환경에서 ejs 사용 위해선 -> npm i ejs
+// __dirname 설정 (ESM 환경일 경우 필요)
+import {fileURLToPath} from 'url'
+import path from 'path'
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+// EJS 뷰 엔진 설정
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname, 'views')) // 뷰 파일 경로
+
+
 // 미들웨어 함수 등록
 app.use(express.json()) // 요청으로 들어오는 json형태 데이터를 -> nodeJS에서 읽을 수 있게 파싱 해줌 => 파싱전까진 req.body가 undefined로 뜰거임
+
+import indexRouter from './routes/index.js'
+app.use('/', indexRouter)
 
 import usersRouter from './routes/users.js'
 app.use('/users', usersRouter)
