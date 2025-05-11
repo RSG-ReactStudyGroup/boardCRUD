@@ -1,7 +1,10 @@
 import express from "express";
+import boardApi from "./boards/index.js";
 
-const router = express.Router();
+const routers = express.Router();
 
-router.use("/api/v1");
-
-export default router;
+routers.use("/api/v1", boardApi);
+routers.get("/ping", (res, req) => {
+  res.send("보내짐 ");
+});
+export default routers;

@@ -7,7 +7,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json()); //json으로 파싱
-app.use("/", routers); //라우터 등록
+app.use(routers); //라우터 등록
 app.use(errorMiddleware); //공통핸들러 맨 마지막에 작성
 
 //Sequelize DB 동기화
