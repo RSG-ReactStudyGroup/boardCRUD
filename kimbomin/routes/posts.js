@@ -4,6 +4,27 @@ const router = express.Router()
 import connDB from '../db/connDB.js'
 
 
+// 전체 게시글 조회
+router.get('/',
+  async (req, res) => {
+    try {
+      const [dbResult, _] = await connDB.query(
+        `SELECT * FROM posts`
+      )
+      console.log("dbResult : ",dbResult)
+      res.status(200).render('posts', 
+        {
+          hi : hi
+        }
+      )
+    }
+    catch (err) {
+      console.error("에러남",err)
+      res.status(500).json({message : "서버에서 에러남"})
+    }
+  }
+)
+
 // 게시글 생성
 router.post('/', 
   async (req, res) => {
@@ -16,27 +37,6 @@ router.post('/',
       console.log("dbResult : ",dbResult)
       res.status(201).json({
         message : "게시글 작성 성공",
-        result : dbResult
-      })
-    }
-    catch (err) {
-      console.error("에러남",err)
-      res.status(500).json({message : "서버에서 에러남"})
-    }
-  }
-)
-
-
-// 전체 게시글 조회
-router.get('/',
-  async (req, res) => {
-    try {
-      const [dbResult, _] = await connDB.query(
-        `SELECT * FROM posts`
-      )
-      console.log("dbResult : ",dbResult)
-      res.status(201).json({
-        message : "전체 게시글 조회 성공",
         result : dbResult
       })
     }
@@ -63,11 +63,10 @@ router.get('/:id',
       })
     }
     catch (err) {
-      console.error("에러남",err)
-      res.status(500).json({message : "서버에서 에러남"})
+      console.error("에러발생",err)
+      res.status(500).json({message : "서버에서 에러발생"})
     }
   }
 )
-
 
 export default router
