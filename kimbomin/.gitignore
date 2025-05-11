@@ -1,2 +1,6 @@
 database/connet/mariadb.js
-/node_modules
+
+# 모든 node_modules 디렉토리 무시
+**/node_modules/
+
+.env

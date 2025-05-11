@@ -9,10 +9,9 @@
 CREATE TABLE users (
 	id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
 	email VARCHAR(40) NOT NULL UNIQUE,
-	password VARCHAR(40) NOT NULL
+	password VARCHAR(40) NOT NULL,
+	nickname VARCHAR(30) NOT NULL
 );
-INSERT INTO users (email, password)
-VALUES ('bomin', '1234');
 ```
 
 ### 게시글 posts
@@ -23,17 +22,11 @@ CREATE TABLE posts (
 	title VARCHAR(100) NOT NULL,
 	contents VARCHAR(2000) NOT NULL,
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	user_id INT,
 	
 	FOREIGN KEY (user_id) REFERENCES users(id) -- 외래키 설정
 );
-INSERT INTO posts (title, contents, user_id)
-VALUES ('첫 게시글', '게시글 내용은 이렇습니다', 1);
-SELECT * FROM posts;
--- updated_at 컬럼 추가
-ALTER TABLE posts ADD COLUMN updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
--- 게시글 수정
-UPDATE posts SET title = '이건 제목 수정' WHERE title = '테스트용 게시글' AND user_id = 2;
 ```
 
 ## 프로젝트 구조
