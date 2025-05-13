@@ -1,6 +1,7 @@
 import { createBoard } from "./service/createBoards.js";
 import { getBoards } from "./service/getBoards.js";
 
+// 게시글 등록
 export const postBoards = async (req, res, next) => {
   try {
     const { title, content } = req.body;
@@ -12,6 +13,7 @@ export const postBoards = async (req, res, next) => {
   }
 };
 
+// 전체 조회
 export const getAllBoards = async (req, res, next) => {
   try {
     const boards = await getBoards();
@@ -20,4 +22,12 @@ export const getAllBoards = async (req, res, next) => {
     console.log("❌ getAllBoardsController 에러", err);
     next(err);
   }
+};
+
+// 개별 조회
+export const getBoardById = (req, res) => {
+  res.status(200).json({
+    message: "게시글 조회 성공",
+    board: req.board,
+  });
 };

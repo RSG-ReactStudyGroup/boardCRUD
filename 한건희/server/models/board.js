@@ -28,7 +28,7 @@ const Boards = sequelize.define(
   },
   {
     tableName: "boards",
-    timestamps: true,
+    timestamps: false, // 자동으로 맵핑연결 createAt, upadateAt 생성되서 저장
     underscored: true,
   }
 );
