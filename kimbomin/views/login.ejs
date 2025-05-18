@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로그인</title>
+</head>
+<body>
+  <form id="loginForm" action="/login" method="POST">
+    <div>
+      <label for="email">이메일 : </label>
+      <input id="email" type=text">
+    </div>
+    <div>
+      <label for="password">비밀번호 : </label>
+      <input id="password" type="text">
+    </div>
+    <button type="button" onclick="login()">로그인 하기</button>
+  </form>
+
+
+
+
+
+<script>
+  async function login(){
+    const loginForm = document.querySelector("#loginForm")
+    const email = loginForm.querySelector("#email").value
+    const password = loginForm.querySelector("#password").value
+    console.log(email)
+    console.log(password)
+
+    try {
+      const response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({email, password})
+      })
+      const data = await response.json()
+      console.log("data : ",data) // JSON 응답 받기
+
+      // 로그인 실패
+      if(data.loginFlag !== "Y") {
+        return alert("로그인 실패")
+      }
+      // 로그인 성공 -> 홈으로 리다이랙트
+      window.location.href = '/';
+    }
+    catch (err){
+      console.log("err : ",err)
+    }
+  }
+</script>
+</body>
+</html>
