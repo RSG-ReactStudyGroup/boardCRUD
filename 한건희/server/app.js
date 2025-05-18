@@ -2,9 +2,17 @@ import express from "express";
 import { sequelize } from "./config/mariaDB.js";
 import routers from "./router/index.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
+import { fileURLToPath } from "url";
+import path from "path";
 
 const app = express();
 const port = 4193;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.set("views", path.join(__dirname, "..", "client"));
+app.set("view engine", "ejs");
+app.use(express.static(path.join(__dirname, "..", "client", "css")));
 
 app.use(express.json()); //json으로 파싱
 app.use("/", routers); //라우터 등록
