@@ -1,0 +1,25 @@
+<!-- index.ejs -->
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시물 목록</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1>게시판</h1>
+    <a href="/write">📝 새 글 쓰기</a>
+
+    <ul id="postList">
+      <% boards.forEach(board => { %>
+      <li>
+        <strong><%= board.id %></strong>
+        <span><%= board.title %></span>
+        <em><%= board.date %></em>
+      </li>
+      <% }) %>
+    </ul>
+
+    <script src="/js/list.js"></script>
+  </body>
+</html>
