@@ -1,7 +1,8 @@
 import express from "express";
+import boardApi from "./boards/index.js";
 
-const router = express.Router();
+const routers = express.Router();
 
-router.use("/api/v1");
+routers.use("/api/v1", boardApi);
 
-export default router;
+export default routers;

@@ -4,7 +4,7 @@ import routers from "./router/index.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 
 const app = express();
-const port = 3000;
+const port = 4193;
 
 app.use(express.json()); //json으로 파싱
 app.use("/", routers); //라우터 등록
