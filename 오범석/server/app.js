@@ -1,15 +1,16 @@
 require('dotenv').config();
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const postsRouter = require('./routes/posts');
+const usersRouter = require('./routes/users');
 
 const cors = require('cors');
 
-var app = express();
+const app = express();
 
 app.use(cors());
 app.use(logger(process.env.LOG_MODE));
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
+app.use('/posts', postsRouter);
 app.use('/users', usersRouter);
 
 // 없는 라우터 요청 처리
