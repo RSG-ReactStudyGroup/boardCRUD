@@ -8,15 +8,37 @@ import connDB from '../db/connDB.js'
 router.get('/',
   async (req, res) => {
     try {
-      const [dbResult, _] = await connDB.query(
-        `SELECT * FROM posts`
+      const {id, nickname} = req.user
+      const [postList] = await connDB.query(
+        `SELECT posts.*, users.nickname
+        FROM posts 
+        LEFT JOIN users ON posts.user_id = users.id
+        WHERE user_id = ?`, id
       )
-      console.log("dbResult : ",dbResult)
-      res.status(200).render('posts', 
-        {
-          hi : hi
-        }
-      )
+
+      res.status(200).render('postGet', {
+        nickname: nickname,
+        postList : postList
+      })
+    }
+    catch (err) {
+      console.error("에러남",err)
+      res.status(500).json({message : "서버에서 에러남"})
+    }
+  }
+)
+
+
+
+// 게시글 작성 페이지 ejs 연결
+router.get('/write',
+  async (req, res) => {
+    try {
+      const {id,nickname} = req.user
+      res.status(200).render('postWrite', {
+        id : id,
+        nickname : nickname
+      })
     }
     catch (err) {
       console.error("에러남",err)
@@ -30,11 +52,10 @@ router.post('/',
   async (req, res) => {
     try {
       const {user_id, title, contents} = req.body
-      const [dbResult, _] = await connDB.query(
+      const [dbResult] = await connDB.query(
         `INSERT INTO posts (user_id, title, contents) VALUES (?,?,?)`,
         [user_id, title, contents]
       )
-      console.log("dbResult : ",dbResult)
       res.status(201).json({
         message : "게시글 작성 성공",
         result : dbResult
@@ -57,7 +78,7 @@ router.get('/:id',
         id
       )
       console.log("dbResult : ",dbResult)
-      res.status(201).json({
+      res.status(200).json({
         message : "개별 게시글 조회 성공",
         result : dbResult
       })

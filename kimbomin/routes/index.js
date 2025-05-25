@@ -7,19 +7,13 @@ router.get('/', async (req, res) => {
   try {
     console.log("홈에서 req.user 확인 : ", req.user)
     
-    let loginFlag = false
-    let name = ""
-    if(req.user){
-      name = req.user.nickname
-      loginFlag = true
-    }
-     // res.render() : 위에서 설정을 토대로 (views파일에서) ejs 파일을 읽어다 html로 변환해서 클라이언트에 넘겨줌
-    return res.status(200).render('index', 
-      {
-        name : name,
-        loginFlag : loginFlag
-      }
-    )
+    console.log("req.user : ",req.user)
+    const {nickname} = req.user
+
+    // res.render() 기능 : 위에서 설정을 토대로 (views파일에서) ejs 파일을 읽어다 html로 변환해서 클라이언트에 넘겨줌
+    return res.status(200).render('index', {
+      name : nickname,
+    })
   }
   catch(err) {
     console.log("error : ", err)

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 작성</title>
+</head>
+<body>
+  <h1>"<%= nickname %>"님의 글 작성</h1>
+  <form id="postsForm" action="/posts" method="POST">
+    <div>
+      <label for="title">title : </label>
+      <input id="title" type=text">
+    </div>
+    <div>
+      <label for="contents">글 내용 : </label>
+      <input id="contents" type="text">
+    </div>
+    <button type="button" onclick="posts()">글 작성하기</button>
+  </form>
+
+
+
+
+
+<script>
+  async function posts(){
+    const postsForm = document.querySelector("#postsForm")
+    const title = postsForm.querySelector("#title").value
+    const contents = postsForm.querySelector("#contents").value
+    console.log(title)
+    console.log(contents)
+    const user_id = "<%= id %>"
+
+    try {
+      const response = await fetch('/posts', {
+        method: 'POST',
+        headers: {
+          'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify({
+          user_id,
+          title, 
+          contents
+        })
+      })
+      const data = await response.json()
+      console.log("data : ",data) // JSON 응답 받기
+      
+    }
+    catch (err){
+      console.log("err : ",err)
+    }
+  }
+</script>
+</body>
+</html>

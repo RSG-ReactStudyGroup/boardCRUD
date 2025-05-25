@@ -17,7 +17,7 @@ export default async function jwtCheck(req, res, next){
       const decoded = jwt.verify(token, process.env.SECRET_KEY)
       // 복호화 객체 <=> DB 조회
       const [rows] = await connDB.query(
-        `SELECT email, nickname FROM users WHERE email = ? AND nickname = ?`,
+        `SELECT id, email, nickname FROM users WHERE email = ? AND nickname = ?`,
         [decoded.email, decoded.nickname]
       )
       // 맞는 회원정보가 있으면 => 회원 정보 담아줌

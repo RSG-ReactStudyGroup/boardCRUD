@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>글 전체 목록</title>
+  <style>
+    ul > li {border: 1px solid #000; min-height: 200px;}
+  </style>
+</head>
+<body>
+  <h1>
+    <span style="color: purple"><%= nickname %></span> 
+    글 리스트
+  </h1>
+ 
+  <ul>
+  <% postList.forEach( (post) => { %>
+    <li>
+      제목: <%= post.title %><br>
+      내용: <%= post.contents %><br>
+      작성자: <%= post.nickname %><br>
+      작성일: <%= post.created_at %>
+    </li>
+  <% }) %>
+</ul>
+
+
+
+
+<script>
+
+</script>
+</body>
+</html>
