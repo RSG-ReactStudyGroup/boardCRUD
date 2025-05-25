@@ -5,7 +5,7 @@ export const errorMiddleware = (err, req, res, next) => {
   const message = err.message || "서버 내부 오류 발생";
 
   res.status(status).json({
-    message, //입력값 오류
+    message: err.message, //입력값 오류
     errors: err.details || null, // expresss - validator의 상세 메세지 배열
   });
 };

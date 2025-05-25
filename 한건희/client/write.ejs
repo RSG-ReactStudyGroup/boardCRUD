@@ -1,23 +1,65 @@
 <!-- write.html -->
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>게시물 작성</title>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-  <h1>게시물 작성</h1>
-  <form id="postForm">
-    <label>제목</label><br>
-    <input type="text" id="title" required><br><br>
+  <head>
+    <meta charset="UTF-8" />
+    <title>게시물 작성</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <h1>게시물 작성</h1>
+    <form id="postForm">
+      <label>제목</label><br />
+      <input type="text" id="title" name="title" /><br /><br />
 
-    <label>내용</label><br>
-    <textarea id="content" rows="10" required></textarea><br><br>
+      <label>내용</label><br />
+      <textarea id="content" name="content" rows="10" required></textarea
+      ><br /><br />
 
-    <button type="submit">작성하기</button>
-  </form>
+      <button type="submit">작성하기</button>
+    </form>
 
-  <script src="js/write.js"></script>
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const form = document.querySelector("#postForm");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const title = document.querySelector("#title").value.trim();
+          const content = document.querySelector("#content").value.trim();
+
+          try {
+            const res = await fetch("/api/v1/posts", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ title, content }),
+            });
+
+            const result = await res.json(); // 항상 먼저 파싱
+
+            if (!res.ok) {
+              // 🔥 403, 400 등 오류 응답 처리
+              alert(`❌ 등록 실패: ${result.message || "알 수 없는 오류"}`);
+              return;
+            }
+
+            // ✅ 성공 처리
+            alert("✅ 등록 완료!");
+            location.href = "/";
+          } catch (err) {
+            console.error("에러 발생:", err);
+            alert("⚠️ 서버 오류가 발생했습니다.");
+          }
+        });
+      });
+
+      // ✅ res.ok 설명
+      // res.ok는 상태코드가 200~299일 때만 true
+      // 403, 400, 500 등은 전부 false
+      // 그래서 !res.ok 체크로 실패 로직 다 커버 가능함
+    </script>
+  </body>
 </html>

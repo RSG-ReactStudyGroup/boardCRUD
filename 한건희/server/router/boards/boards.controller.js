@@ -4,7 +4,7 @@ import { updateBoard } from "./service/updateBoard.js";
 import { deleteBoard } from "./service/deleteBoard.js";
 import dayjs from "dayjs";
 
-// 게시글 등록
+// 게시글 등록 API
 export const postBoards = async (req, res, next) => {
   try {
     const { title, content } = req.body;
@@ -16,17 +16,17 @@ export const postBoards = async (req, res, next) => {
   }
 };
 
-// 전체 조회
+// 전체 조회 API
 export const getAllBoards = async (req, res, next) => {
   try {
     const boards = await getBoards();
-    // res.status(200).json({ message: "전체 개시물 조회 완료 !", boards });
+
     const parsedBoards = boards.map((board) => ({
       ...board.dataValues,
       date: dayjs(board.updated_at || board.created_at).format("YYYY-MM-DD"),
     }));
-
-    res.render("index", { boards: parsedBoards });
+    res.status(200).json({ message: "전체 개시물 조회 완료 !", parsedBoards });
+    // res.render("index", { boards: parsedBoards });
     return;
   } catch (err) {
     console.log("❌ getAllBoardsController 에러", err);
@@ -34,7 +34,7 @@ export const getAllBoards = async (req, res, next) => {
   }
 };
 
-// 개별 조회
+// 개별 조회 API
 export const getBoardById = (req, res) => {
   res.status(200).json({
     message: "게시글 조회 성공",
@@ -42,7 +42,7 @@ export const getBoardById = (req, res) => {
   });
 };
 
-// 업데이트
+// 업데이트 API
 export const updateBoards = async (req, res, next) => {
   try {
     const updated = await updateBoard(req.board, req.body);
@@ -56,7 +56,7 @@ export const updateBoards = async (req, res, next) => {
   }
 };
 
-//삭제
+//삭제 API
 export const deleteBoards = async (req, res, next) => {
   try {
     await deleteBoard(req.board);
@@ -64,4 +64,19 @@ export const deleteBoards = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+// 메인 화면
+export const mainPage = (req, res) => {
+  res.render("index");
+};
+
+// 게시글 작성
+export const writeForm = (req, res) => {
+  res.render("write");
+};
+
+// 게시물 상세보기
+export const boardDetailForm = (req, res) => {
+  res.render("detail");
 };
