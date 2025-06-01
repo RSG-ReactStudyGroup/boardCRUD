@@ -14,10 +14,9 @@
 10. mysql2: MariaDB 연동용
 11. express-validator: 입력값 유효성 검증
 
-
 ## 프로젝트 디렉토리 구조
 
-```
+```text
 server/
 ├── www/                  # 서버 실행 진입점 (예: node www)
 ├── app.js                # Express 앱 설정 (라우터, 미들웨어 등)
@@ -33,26 +32,25 @@ server/
 ## 데이터베이스 테이블 설계
 
 - Table: users
-    - id: int, PK, AUTO_INCREMENT
-    - username: varchar
-    - email: varchar, UNIQUE
-    - password: varchar
-    - created_at: datetime
-    - updated_at: datetime
+    -- id: int, PK, AUTO_INCREMENT
+    -- username: varchar
+    -- email: varchar, UNIQUE
+    -- password: varchar
+    -- created_at: datetime
+    -- updated_at: datetime
 
 - Table: posts
-    - id: int, PK, AUTO_INCREMENT
-    - title: varchar
-    - content: text
-    - user_id: int, FK → users.id
-    - created_at: datetime
-    - updated_at: datetime
+    -- id: int, PK, AUTO_INCREMENT
+    -- title: varchar
+    -- content: text
+    -- user_id: int, FK → users.id
+    -- views: int, @default(0)
+    -- created_at: datetime
+    -- updated_at: datetime
 
--Table: login_logs
-    - id: int, PK, AUTO_INCREMENT
-    - user_id: int, FK → users.id
-    - ip_address: varchar(45)
-    - user_agent: varchar(255)
-    - logged_in_at: datetime (default: now)
-
-
+- Table: login_logs
+    -- id: int, PK, AUTO_INCREMENT
+    -- user_id: int, FK → users.id
+    -- ip_address: varchar(45)
+    -- user_agent: varchar(255)
+    -- logged_in_at: datetime (default: now)
